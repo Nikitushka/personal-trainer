@@ -6,10 +6,11 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import ReactTable from 'react-table-v6';
 import Moment from 'react-moment';
+import AddTraining from './AddTraining'
 
 export default function DispTraining(props) {
     const [training, setTraining] = useState([]);
-
+    const [msg, setMsg] = useState("");
     const [open, setOpen] = React.useState(false);
     
     const handleClickOpen = () => {
@@ -24,11 +25,25 @@ export default function DispTraining(props) {
         setOpen(false);
     };
 
+    const addTraining = (training) => {
+            fetch("https://customerrest.herokuapp.com/api/trainings", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(training)
+            })
+            .then(_ => handleClickOpen())
+            .then(_ => {
+                setMsg('New training added')
+                setOpen(true)
+            } )
+            .catch(err => console.error(err))
+    };
+
     const columns = [
         {
             Header: "Date",
             Cell: row => (
-              <Moment format="DD.MM.YYYY">
+              <Moment format="DD.MM.YYYY HH:MM">
                 {row.original.date}
               </Moment>
             )
@@ -52,6 +67,7 @@ export default function DispTraining(props) {
                     <ReactTable filterable={true} defaultPageSize={5} data={training} columns={columns}/>
                 </DialogContent>
                 <DialogActions>
+                { <AddTraining addTraining={addTraining} customer={props.trainings.links[0].href } /> }
                     <Button onClick={handleClose} color="primary">
                         Close
                     </Button>

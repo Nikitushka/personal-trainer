@@ -4,6 +4,8 @@ import "react-table-v6/react-table.css";
 import Button from "@material-ui/core/Button";
 import Snackbar from "@material-ui/core/Snackbar";
 import DispTraining from './DispTraining'
+import EditCustomer from './EditCustomer'
+import AddCustomer from './AddCustomer'
 
 export default function CustomerList() {
   const [customers, setCustomers] = useState([]);
@@ -22,45 +24,45 @@ export default function CustomerList() {
   };
 
 
-  // const deleteCustomer = link => {
-  //   if (window.confirm("Are you sure?")) {
-  //     fetch(link, { method: "DELETE" })
-  //       .then(_ => getCustomers())
-  //       .then(_ => {
-  //           setMsg('Customer deleted');
-  //           setOpen(true)
-  //       })
-  //       .catch(err => console.error(err));
-  //   }
-  // };
+  const deleteCustomer = (link) => {
+    if (window.confirm("Are you sure?")) {
+      fetch(link, { method: "DELETE" })
+        .then(_ => getCustomers())
+        .then(_ => {
+            setMsg('Customer deleted');
+            setOpen(true)
+        })
+        .catch(err => console.error(err));
+    }
+  };
 
-  // const addCustomer = Customer => {
-  //   fetch("https://carstockrest.herokuapp.com/cars", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(customer)
-  //   })
-  //   .then(_ => getCustomers())
-  //   .then(_ => {
-  //       setMsg('New customer added')
-  //       setOpen(true)
-  //   } )
-  //   .catch(err => console.error(err))
-  // };
+  const addCustomer = (customer) => {
+    fetch("https://customerrest.herokuapp.com/api/customers", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(customer)
+    })
+    .then(_ => getCustomers())
+    .then(_ => {
+        setMsg('New customer added')
+        setOpen(true)
+    } )
+    .catch(err => console.error(err))
+  };
 
-  // const updateCustomer = (link, customers) => {
-  //   fetch(link, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(customers)
-  //   })
-  //   .then(_ => getCustomers())
-  //   .then(_ => {
-  //       setMsg('Customer updated')
-  //       setOpen(true)
-  //   } )
-  //   .catch(err => console.error(err))
-  // };
+  const updateCustomer = (link, customer) => {
+    fetch(link, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(customer)
+    })
+    .then(_ => getCustomers())
+    .then(_ => {
+        setMsg('Customer updated')
+        setOpen(true)
+    } )
+    .catch(err => console.error(err))
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -96,34 +98,36 @@ export default function CustomerList() {
       accessor: "phone"
     },
     {
-      Header: "Trainings",
+      Header: "Trainings",  
       Cell: row => (
         <DispTraining trainings={row.original} />
       )
     },
-    // {
-    //     Cell: row => (<EditCustomer updateCustomer={updateCustomer} customers={row.original} />)
-    // },
-    // {
-    //   accessor: "_links.self.href",
-    //   filterable: false,
-    //   sortable: false,
-    //   minWidth: 60,
-    //   Cell: row => (
-    //     <Button
-    //       color="secondary"
-    //       size="small"
-    //       onClick={() => deleteCustomer(row.value)}
-    //     >
-    //       Delete
-    //     </Button>
-    //   )
-    // }
+    {
+        filterable: false,
+        sortable: false, 
+        Cell: row => (<EditCustomer updateCustomer={updateCustomer} customer={row.original} />)
+    },
+    {
+      accessor: "links[0].href",
+      filterable: false,
+      sortable: false,
+      minWidth: 60,
+      Cell: row => (
+        <Button
+          color="secondary"
+          size="small"
+          onClick={() => deleteCustomer(row.value)}
+        >
+          Delete
+        </Button>
+      )
+    }
   ];
 
   return (
     <div>
-      {/* <AddCustomer addCustomer={addCustomer} /> */}
+      { <AddCustomer addCustomer={addCustomer} /> }
       <ReactTable
         filterable={true}
         defaultPageSize={12}

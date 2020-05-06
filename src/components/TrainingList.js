@@ -3,6 +3,7 @@ import ReactTable from "react-table-v6";
 import "react-table-v6/react-table.css";
 import Moment from 'react-moment'
 import DispCustomer from "./DispCustomer"
+import Button from '@material-ui/core/Button';
 
 export default function TrainingList() {
   const [trainings, setTrainings] = useState([]);
@@ -20,45 +21,17 @@ export default function TrainingList() {
       .then(err => console.error(err));
   };
 
-//   const deleteTraining = link => {
-//     if (window.confirm("Are you sure?")) {
-//       fetch(link, { method: "DELETE" })
-//         .then(_ => getCars())
-//         .then(_ => {
-//             setMsg('Car deleted');
-//             setOpen(true)
-//         })
-//         .catch(err => console.error(err));
-//     }
-//   };
-
-  // const addTraining = car => {
-  //   fetch("https://carstockrest.herokuapp.com/cars", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(car)
-  //   })
-  //   .then(_ => getCars())
-  //   .then(_ => {
-  //       setMsg('New car added')
-  //       setOpen(true)
-  //   } )
-  //   .catch(err => console.error(err))
-  // };
-
-  // const updateTraining = (link, car) => {
-  //   fetch(link, {
-  //     method: "PUT",
-  //     headers: { "Content-Type": "application/json" },
-  //     body: JSON.stringify(car)
-  //   })
-  //   .then(_ => getCars())
-  //   .then(_ => {
-  //       setMsg('Car updated')
-  //       setOpen(true)
-  //   } )
-  //   .catch(err => console.error(err))
-  // };
+  const deleteTraining = link => {
+    if (window.confirm("Are you sure?")) {
+      fetch(link, { method: "DELETE" })
+        .then(_ => getTrainings())
+        .then(_ => {
+            setMsg('Training deleted');
+            setOpen(true)
+        })
+        .catch(err => console.error(err));
+    }
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -76,7 +49,7 @@ export default function TrainingList() {
     {
       Header: "Date",
       Cell: row => (
-        <Moment format="DD.MM.YYYY">
+        <Moment format="DD.MM.YYYY HH:MM">
           {row.original.date}
         </Moment>
       )
@@ -87,29 +60,18 @@ export default function TrainingList() {
         <DispCustomer customer={row.original} />
       )
     },
-    // {
-    //     Cell: row => (<Edittraining updateTraining={updateTraining} trainings={row.original} />)
-    // },
-    // {
-    //   accessor: "_links.self.href",
-    //   filterable: false,
-    //   sortable: false,
-    //   minWidth: 60,
-    //   Cell: row => (
-    //     <Button
-    //       color="secondary"
-    //       size="small"
-    //       onClick={() => deleteTraining(row.value)}
-    //     >
-    //       Delete
-    //     </Button>
-    //   )
-    // }
+    {
+      accessor: "links[0].href",
+      Cell: row => (
+          <Button color="secondary"
+          size="small" 
+          onClick={() => deleteTraining(row.value)}>Delete</Button>
+      )
+  }
   ];
   return (
     console.log(trainings),
     <div>
-      {/* <Addcar addTraining={addTraining} /> */}
       <ReactTable
         filterable={true}
         defaultPageSize={15}
