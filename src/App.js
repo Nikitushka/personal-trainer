@@ -4,9 +4,9 @@ import { BrowserRouter, Route, Switch} from 'react-router-dom';
 import Navigator from './components/Navigator.js'
 import Customerlist from './components/CustomerList'
 import TrainingList from './components/TrainingList'
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import Calendarino from './components/Calendarino'
+import Statistics from './components/Statistics'
+
 
 function App() {
   return (
@@ -16,7 +16,9 @@ function App() {
           <Navigator />
             <Switch>
               <Route exact path="/" component={Customerlist}/>
-              <Route path="/trainings"component={TrainingList}/>
+              <Route path="/trainings" component={TrainingList}/>
+              <Route path="/calendar" component={Calendarino}/>
+              <Route path="/statistics" component={Statistics}/>
               <Route render={() => <h1>Page not found</h1>}/>
             </Switch>
         </div>

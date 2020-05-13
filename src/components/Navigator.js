@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import"bootstrap/dist/css/bootstrap.min.css";
+import EmojiPeopleSharpIcon from '@material-ui/icons/EmojiPeopleSharp';
+import AccessibilitySharpIcon from '@material-ui/icons/AccessibilitySharp';
+import EventAvailableSharpIcon from '@material-ui/icons/EventAvailableSharp';
+import EqualizerSharpIcon from '@material-ui/icons/EqualizerSharp';
 
 // Inside the return statement
 export default function Navigator(){
@@ -14,11 +18,17 @@ return (
 <Link className="navbar-brand" to ="/" >Personal Trainer</Link>
 <div className="collapse navbar-collapse" id ="navbarSupportedContent">
 <ul className="navbar-nav mr-auto">
-    <li className="nav-item active">
-        <Link className="nav-link" to="/">Customers</Link>
+    <li className="nav-item">
+        <Link className="nav-link" to="/"><EmojiPeopleSharpIcon />Customers</Link>
     </li>
     <li className="nav-item">
-        <Link className="nav-link" to="/trainings">Trainings</Link>
+        <Link className="nav-link" to="/trainings"><AccessibilitySharpIcon />Trainings</Link>
+    </li>
+    <li className="nav-item">
+        <Link className="nav-link" to="/calendar"><EventAvailableSharpIcon />Calendar</Link>
+    </li>
+    <li className="nav-item">
+        <Link className="nav-link" to="/statistics"><EqualizerSharpIcon />Statistics</Link>
     </li>
 </ul >
 </div>

@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import PersonAddSharpIcon from '@material-ui/icons/PersonAddSharp';
 
 export default function AddCustomer(props) {
     const [open, setOpen] = React.useState(false);
@@ -40,8 +41,8 @@ export default function AddCustomer(props) {
           variant="outlined"
           color="primary"
           onClick={handleClickOpen}
-        >
-          New Customer
+        >  New Customer
+        <PersonAddSharpIcon />
         </Button>
         <Dialog
           open={open}
@@ -122,11 +123,11 @@ export default function AddCustomer(props) {
                     />
                     </DialogContent>
                 <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                        Save
+                    </Button>
                     <Button onClick={handleCancel} color="secondary">
                         Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Save
                     </Button>
                 </DialogActions>
             </Dialog>

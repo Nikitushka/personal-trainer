@@ -36,7 +36,7 @@ export default function AddTraining(props) {
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <DateTimePicker
             onChange={(date) => handleDateChange(date)}
-            format="dd.MM.yyyy HH:MM"
+            format="dd.MM.yyyy HH:mm"
             margin="dense"
             inputProps={{ "data-testid" : "date"}}
             name="date"

@@ -43,7 +43,7 @@ export default function DispTraining(props) {
         {
             Header: "Date",
             Cell: row => (
-              <Moment format="DD.MM.YYYY HH:MM">
+              <Moment format="DD.MM.YYYY HH:mm">
                 {row.original.date}
               </Moment>
             )
@@ -75,6 +75,4 @@ export default function DispTraining(props) {
             </Dialog>
         </div>     
     )
-
-
 }

@@ -131,11 +131,11 @@ export default function EditCustomer(props) {
                     />
                     </DialogContent>
                 <DialogActions>
+                <Button onClick={handleClose} color="primary">
+                        Save
+                    </Button>
                     <Button onClick={handleCancel} color="secondary">
                         Cancel
-                    </Button>
-                    <Button onClick={handleClose} color="primary">
-                        Save
                     </Button>
                 </DialogActions>
             </Dialog>

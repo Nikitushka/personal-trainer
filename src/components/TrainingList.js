@@ -49,7 +49,7 @@ export default function TrainingList() {
     {
       Header: "Date",
       Cell: row => (
-        <Moment format="DD.MM.YYYY HH:MM">
+        <Moment format="DD.MM.YYYY HH:mm">
           {row.original.date}
         </Moment>
       )
@@ -58,7 +58,8 @@ export default function TrainingList() {
       Header: "Customer",
       Cell: row => (
         <DispCustomer customer={row.original} />
-      )
+      ),
+      filterable: false
     },
     {
       accessor: "links[0].href",
@@ -66,7 +67,8 @@ export default function TrainingList() {
           <Button color="secondary"
           size="small" 
           onClick={() => deleteTraining(row.value)}>Delete</Button>
-      )
+      ),
+      filterable: false
   }
   ];
   return (
@@ -78,12 +80,6 @@ export default function TrainingList() {
         data={trainings}
         columns={columns}
       />
-      {/* <Snackbar
-        open={open}
-        autoHideDuration={3000}
-        onClose={handleClose}
-        message= {msg}
-      /> */}
     </div>
   );
 }

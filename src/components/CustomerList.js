@@ -101,7 +101,8 @@ export default function CustomerList() {
       Header: "Trainings",  
       Cell: row => (
         <DispTraining trainings={row.original} />
-      )
+      ),
+      filterable: false
     },
     {
         filterable: false,
