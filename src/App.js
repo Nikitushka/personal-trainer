@@ -19,7 +19,7 @@ function App() {
               <Route path="/trainings" component={TrainingList}/>
               <Route path="/calendar" component={Calendarino}/>
               <Route path="/statistics" component={Statistics}/>
-              <Route render={() => <h1>Page not found</h1>}/>
+              <Route render={() => <h1>Page not found.</h1>}/>
             </Switch>
         </div>
       </ BrowserRouter>
